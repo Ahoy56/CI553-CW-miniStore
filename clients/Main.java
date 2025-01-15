@@ -45,9 +45,12 @@ class Main
     startCashierGUI_MVC( mlf ); // you can create multiple clients
     startPackingGUI_MVC( mlf );
     startBackDoorGUI_MVC( mlf );
+    startDarkModePopup(); // Start dark mode popup
   }
   
-  /**
+  
+
+/**
   * start the Customer client, -search product
   * @param mlf A factory to create objects to access the stock list
   */
@@ -92,6 +95,50 @@ class Main
    * start the Packing client - for warehouse staff to pack the bought order for customer, one order at a time
    * @param mlf A factory to create objects to access the stock list
    */
+   //Start the dark mode popup in a separate thread.
+  
+ public void startDarkModePopup() {
+     new Thread(() -> {
+         JDialog popup = new JDialog((JFrame) null, "Dark Mode Toggle", true);
+         popup.setSize(300, 200);
+         popup.setLayout(new BorderLayout());
+         popup.setLocationRelativeTo(null); // Center the dialog
+
+         JPanel panel = new JPanel();
+         panel.setLayout(new BorderLayout());
+         panel.setBackground(Color.WHITE); // Initial background color
+
+         JLabel label = new JLabel("Click the button to toggle Dark Mode!", SwingConstants.CENTER);
+         label.setForeground(Color.BLACK); // Initial text color
+         panel.add(label, BorderLayout.CENTER);
+
+         JButton toggleButton = new JButton("Toggle Dark Mode");
+         panel.add(toggleButton, BorderLayout.SOUTH);
+
+         toggleButton.addActionListener(new java.awt.event.ActionListener() {
+             private boolean isDarkMode = false;
+
+             @Override
+             public void actionPerformed(java.awt.event.ActionEvent e) {
+                 if (isDarkMode) {
+                     panel.setBackground(Color.WHITE);
+                     label.setForeground(Color.BLACK);
+                     toggleButton.setText("Toggle Dark Mode");
+                     isDarkMode = false;
+                 } else {
+                     panel.setBackground(Color.DARK_GRAY);
+                     label.setForeground(Color.WHITE);
+                     toggleButton.setText("Toggle Light Mode");
+                     isDarkMode = true;
+                 }
+             }
+         });
+
+         popup.add(panel);
+         popup.setVisible(true); // Display the popup
+     }).start();
+ }
+
   
   public void startPackingGUI_MVC(MiddleFactory mlf)
   {
@@ -131,4 +178,6 @@ class Main
     window.setVisible(true);         // Make window visible
   }
   
+  
 }
+
