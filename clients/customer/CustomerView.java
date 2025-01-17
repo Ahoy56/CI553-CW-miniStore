@@ -97,6 +97,12 @@ public class CustomerView implements Observer
     
     rootWindow.setVisible( true );                  // Make visible);
     theInput.requestFocus();                        // Focus is here
+    
+    theInput.setBackground(new Color(74, 100, 56)); // Purple background for the input box
+    theInput.setForeground(Color.YELLOW);            // White text for readability
+
+    theOutput.setBackground(new Color(74, 100, 56)); // Purple background for the output area
+    theOutput.setForeground(Color.YELLOW);            // White text for readability
   }
 
    /**

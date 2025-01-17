@@ -1,6 +1,7 @@
 package clients;
 
 import clients.backDoor.BackDoorController;
+
 import clients.backDoor.BackDoorModel;
 import clients.backDoor.BackDoorView;
 import clients.cashier.CashierController;
@@ -16,6 +17,8 @@ import middle.LocalMiddleFactory;
 import middle.MiddleFactory;
 import javax.swing.*;
 import java.awt.*;
+import AuthorisationPage.AuthPage;
+import javax.swing.*;
 
 /**
  * Starts all the clients (user interface)  as a single application.
@@ -31,6 +34,25 @@ class Main
   public static void main (String args[])
   {
     new Main().begin();
+    
+    SwingUtilities.invokeLater(() -> {
+        new AuthPage();  // Open Login Popup
+        //new Main().startOtherWindows();
+    });
+}
+
+public void startOtherWindows() {
+    createWindow("Customer");
+    createWindow("Cashier");
+    createWindow("Packing");
+    createWindow("BackDoor");
+}
+
+private void createWindow(String title) {
+    JFrame window = new JFrame(title + " Client");
+    window.setSize(300, 200);
+    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    window.setVisible(true);
   }
 
   /**
@@ -130,5 +152,6 @@ class Main
     model.addObserver( view );       // Add observer to the model
     window.setVisible(true);         // Make window visible
   }
+  
   
 }

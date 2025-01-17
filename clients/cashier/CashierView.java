@@ -95,8 +95,15 @@ public class CashierView implements Observer
     cp.add( theSP );                                //  Add to canvas
     theSP.getViewport().add( theOutput );           //  In TextArea
     rootWindow.setVisible( true );                  // Make visible
-    theInput.requestFocus();                        // Focus is here
+    theInput.requestFocus();  
+    theInput.setBackground(new Color(128, 0, 128)); // Purple background for the input box
+    theInput.setForeground(Color.ORANGE);            // White text for readability
+
+    theOutput.setBackground(new Color(128, 0, 128)); // Purple background for the output area
+    theOutput.setForeground(Color.ORANGE);            // White text for readability
   }
+  
+  
 
   /**
    * The controller object, used so that an interaction can be passed to the controller
